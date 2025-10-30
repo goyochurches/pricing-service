@@ -1,4 +1,4 @@
-# 🛒 Pricing API - Prueba Técnica
+# 🛒 Pricing service
 ## 🚀 Main Features
 
 * **RESTful API** for fast and accurate price queries.
