@@ -1,158 +1,137 @@
-Pricing API - Technical Test
-============================
+# 🛒 Pricing API - Prueba Técnica
+
+## ✨ Visión General
 
-Overview
---------
+Esta es una aplicación **Spring Boot** que implementa una **API REST** diseñada para la consulta de precios de productos en una plataforma de e-commerce (simulando el contexto Inditex/ZARA).
 
-This is a Spring Boot application that implements a REST API for querying product prices in the Inditex e-commerce platform. The API allows retrieving the applicable pricing for a given product at a specific date and time, taking into account different pricing lists and priorities.
+El objetivo principal es devolver el precio **aplicable** para un producto y una marca dados en una **fecha y hora específicas**, aplicando la lógica de **prioridad** necesaria para las diferentes tarifas o listas de precios.
 
-Features
---------
+---
 
-*   RESTful API for pricing queries
+## 🚀 Características Principales
 
-*   H2 in-memory database with test data
+* **API RESTful** para consultas de precios rápidas y precisas.
+* **Base de Datos en Memoria (H2)** precargada con datos de prueba.
+* Implementación con **JPA/Hibernate** para una gestión de datos robusta.
+* **Validación de Entradas** de la API para garantizar la calidad de los datos.
+* **Documentación de API interactiva** con Swagger/OpenAPI.
+* **Cobertura de Pruebas exhaustiva** (unitarias y de integración).
+* Soporte completo para **Docker** para un despliegue ágil.
 
-*   JPA/Hibernate for data access
+---
 
-*   Input validation
+## 🛠️ Stack Tecnológico
 
-*   API documentation with Swagger/OpenAPI
+| Componente | Versión / Tecnología | Propósito |
+| :--- | :--- | :--- |
+| **Lenguaje** | **Java 21** | Programación principal. |
+| **Framework** | **Spring Boot 3.4** | Arquitectura de la aplicación. |
+| **Web / REST** | Spring Web MVC | REST endpoints |
+| **Persistencia** | Spring Data JPA | Acceso y gestión de datos. |
+| **Base de Datos** | **H2 Database** | Almacenamiento en memoria para pruebas. |
+| **Build** | **Maven** | Gestión de dependencias y build. |
+| **Testing** | **JUnit 5 / RestAssured** | Pruebas unitarias y de integración. |
+| **Documentación** | **OpenAPI 3.0** | Documentación interactiva. |
+| **Contenedores** | **Docker** | Empaquetado y despliegue. |
 
-*   Comprehensive test coverage (unit and integration)
+---
 
-*   Docker support for easy deployment
+## 🌐 Endpoint Principal de la API
 
+### Obtener Precio Aplicable
 
-Tech Stack
-----------
+**`GET /api/prices?date={date}&productId={productId}&brandId={brandId}`**
 
-*   **Java 21** - Programming language
+| Parámetro | Tipo | Requerido | Formato / Ejemplo | Descripción |
+| :--- | :--- | :--- | :--- | :--- |
+| `date` | `string` | **Sí** | `2020-06-14T10:00:00` | Fecha y hora de la aplicación (ISO-8601). |
+| `productId` | `long` | **Sí** | `35455` | Identificador del producto. |
+| `brandId` | `long` | **Sí** | `1` | Identificador de la marca. |
 
-*   **Spring Boot 3.4** - Application framework
+#### **Ejemplo de Respuesta (JSON)**
 
-    *   Spring Web MVC - REST endpoints
+```json
+{
+  "productId": 35455,
+  "brandId": 1,
+  "priceList": 1,
+  "startDate": "2020-06-14T00:00:00",
+  "endDate": "2020-12-31T23:59:59",
+  "pricing": 35.50,
+  "currency": "EUR"
+}
+```
 
-    *   Spring Data JPA - Data access
+## 📋 Esquema de la Base de Datos
 
-    *   Spring Validation - Input validation
+**Tabla: PRICES**
 
-*   **H2 Database** - In-memory database
+| Columna | Tipo de Dato | Descripción |
+| :--- | :--- | :--- |
+| **ID** | `BIGINT` | Clave primaria. |
+| **BRAND_ID** | `BIGINT` | Identificador de Marca (1 = ZARA). |
+| **START_DATE** | `TIMESTAMP` | Inicio de validez. |
+| **END_DATE** | `TIMESTAMP` | Fin de validez. |
+| **PRICE_LIST** | `INT` | Identificador de la Tarifa. |
+| **PRODUCT_ID** | `BIGINT` | Identificador del Producto. |
+| **PRIORITY** | `INT` | **Criterio de desempate** (mayor número = mayor prioridad). |
+| **PRICE** | `DECIMAL` | Precio de venta final. |
+| **CURR** | `VARCHAR` | Código de la divisa (EUR). |
 
-*   **Maven** - Build tool
+---
 
-*   **JUnit 5** - Testing framework
+## 💻 Primeros Pasos
 
-*   **Lombok** - Boilerplate reduction
+### Requisitos Previos
 
-*   **OpenAPI 3.0** - API documentation
+* Java 21 o superior.
+* Maven 3.6 o superior.
+* (Opcional) Docker.
 
-*   **Docker** - Containerization
+### 1. Ejecución Local
 
+1.  Clona el repositorio.
+2.  Compila y empaqueta:
+    ```bash
+    mvn clean install
+    ```
+3.  Ejecuta la aplicación:
+    ```bash
+    mvn spring-boot:run
+    ```
 
-API Endpoints
--------------
+### 2. Verificación y Acceso
 
-### Get Price
+Una vez que la aplicación esté corriendo en **`http://localhost:8080`**:
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   GET /api/prices?date={date}&productId={productId}&brandId={brandId}   `
+* **API REST:** `http://localhost:8080/api/prices`
+* **Swagger UI:** `http://localhost:8080/swagger-ui.html`
+* **H2 Console (DB):** `http://localhost:8080/h2-console`
+    * **JDBC URL:** `jdbc:h2:mem:pricingdb`
+    * **Usuario:** `sa` (Contraseña: vacía)
 
-**Parameters:**
+---
 
-ParameterTypeRequiredDescriptiondatestringYesISO-8601 date-time (e.g., 2020-06-14T10:00:00)productIdlongYesProduct identifierbrandIdlongYesBrand identifier
+## 🐳 Ejecución con Docker
 
-**Example Response:**
+### 1. Generar JAR
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   {    "productId": 35455,    "brandId": 1,    "priceList": 1,    "startDate": "2020-06-14T00:00:00",    "endDate": "2020-12-31T23:59:59",    "pricing": 35.50,    "currency": "EUR"  }   `
+Asegúrate de tener el JAR ejecutable:
 
-Database Schema
----------------
+```bash
+mvn clean package -DskipTests
+```
 
-**Table: PRICES**
+### 3. Construir y Ejecutar
 
-ColumnTypeDescriptionIDBIGINTPrimary keyBRAND\_IDBIGINTBrand identifier (1 = ZARA)START\_DATETIMESTAMPStart date of pricing validity periodEND\_DATETIMESTAMPEnd date of pricing validity periodPRICE\_LISTINTPrice list identifierPRODUCT\_IDBIGINTProduct identifierPRIORITYINTPriority for overlapping pricing rulesPRICEDECIMALFinal sale pricingCURRVARCHARCurrency code (e.g., EUR)
+```bash
+docker build -t pricing-service .
+docker run -p 8080:8080 pricing-service
+```
 
-Getting Started
----------------
+## 🐳 Ejecución test
+Ejecuta todas las pruebas (unitarias y de integración):
 
-### Prerequisites
-
-*   Java 21 or later
-
-*   Maven 3.6 or later
-
-*   (Optional) Docker if you want to run the containerized version
-
-
-### Running the Application
-
-1.  Clone the repository
-
-2.  mvn clean install
-
-3.  mvn spring-boot:run
-
-4.  Access the API documentation at:[**http://localhost:8080/swagger-ui.html**](http://localhost:8080/swagger-ui.html)
-
-
-Running with Docker
--------------------
-
-### Build Docker Image
-
-To build the Docker image for the application, use:
-
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   docker build -t pricing-service .   `
-
-### Run Container
-
-To run the container:
-
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   docker run -p 8080:8080 pricing-service   `
-
-### Verify
-
-Once running, you can access:
-
-*   API: **http://localhost:8080/api/prices**
-
-*   Swagger UI: [**http://localhost:8080/swagger-ui.html**](http://localhost:8080/swagger-ui.html)
-
-
-### Example Dockerfile
-
-Below is the Dockerfile used for this project:
-
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   # Use an official OpenJDK image  FROM openjdk:21-jdk-slim  # Set working directory  WORKDIR /app  # Copy the built JAR file into the container  COPY target/pricing-service.jar app.jar  # Expose port 8080  EXPOSE 8080  # Run the application  ENTRYPOINT ["java", "-jar", "app.jar"]   `
-
-To generate the pricing-service.jar file before building the image, make sure to run:
-
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   mvn clean package -DskipTests   `
-
-Testing
--------
-
-Run all tests (unit and integration) with:
-
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   mvn test   `
-
-Database
---------
-
-The application uses an in-memory **H2 database** with test data loaded at startup.The H2 console is available at:
-
-*   **URL:** [http://localhost:8080/h2-console](http://localhost:8080/h2-console)
-
-*   **JDBC URL:** jdbc:h2:mem:pricingdb
-
-*   **Username:** sa
-
-*   **Password:** _(empty)_
-
-
-Testing Details
----------------
-
-*   **Unit tests** are located under src/test/java/...
-
-*   **Integration tests** (e2e style using RestAssured) are under src/test/java/pricing/integration
+```bash
+mvn test
+```
