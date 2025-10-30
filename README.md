@@ -1,54 +1,45 @@
 # 🛒 Pricing API - Prueba Técnica
+## 🚀 Main Features
 
-## ✨ Visión General
-
-Esta es una aplicación **Spring Boot** que implementa una **API REST** diseñada para la consulta de precios de productos en una plataforma de e-commerce (simulando el contexto Inditex/ZARA).
-
-El objetivo principal es devolver el precio **aplicable** para un producto y una marca dados en una **fecha y hora específicas**, aplicando la lógica de **prioridad** necesaria para las diferentes tarifas o listas de precios.
-
----
-
-## 🚀 Características Principales
-
-* **API RESTful** para consultas de precios rápidas y precisas.
-* **Base de Datos en Memoria (H2)** precargada con datos de prueba.
-* Implementación con **JPA/Hibernate** para una gestión de datos robusta.
-* **Validación de Entradas** de la API para garantizar la calidad de los datos.
-* **Documentación de API interactiva** con Swagger/OpenAPI.
-* **Cobertura de Pruebas exhaustiva** (unitarias y de integración).
-* Soporte completo para **Docker** para un despliegue ágil.
+* **RESTful API** for fast and accurate price queries.
+* **In-memory Database (H2)** preloaded with test data.
+* Implementation with **JPA/Hibernate** for robust data management.
+* **Input Validation** to ensure data integrity.
+* **Interactive API Documentation** with Swagger/OpenAPI.
+* **Comprehensive Test Coverage** (unit and integration tests).
+* Full **Docker** support for easy deployment.
 
 ---
 
-## 🛠️ Stack Tecnológico
+## 🛠️ Tech Stack
 
-| Componente | Versión / Tecnología | Propósito |
+| Component | Version / Technology | Purpose |
 | :--- | :--- | :--- |
-| **Lenguaje** | **Java 21** | Programación principal. |
-| **Framework** | **Spring Boot 3.4** | Arquitectura de la aplicación. |
-| **Web / REST** | Spring Web MVC | REST endpoints |
-| **Persistencia** | Spring Data JPA | Acceso y gestión de datos. |
-| **Base de Datos** | **H2 Database** | Almacenamiento en memoria para pruebas. |
-| **Build** | **Maven** | Gestión de dependencias y build. |
-| **Testing** | **JUnit 5 / RestAssured** | Pruebas unitarias y de integración. |
-| **Documentación** | **OpenAPI 3.0** | Documentación interactiva. |
-| **Contenedores** | **Docker** | Empaquetado y despliegue. |
+| **Language** | **Java 21** | Main programming language. |
+| **Framework** | **Spring Boot 3.4** | Application architecture. |
+| **Web / REST** | Spring Web MVC | REST endpoints. |
+| **Persistence** | Spring Data JPA | Data access and management. |
+| **Database** | **H2 Database** | In-memory storage for testing. |
+| **Build Tool** | **Maven** | Dependency management and build. |
+| **Testing** | **JUnit 5 / RestAssured** | Unit and integration testing. |
+| **Documentation** | **OpenAPI 3.0** | Interactive API documentation. |
+| **Containers** | **Docker** | Packaging and deployment. |
 
 ---
 
-## 🌐 Endpoint Principal de la API
+## 🌐 Main API Endpoint
 
-### Obtener Precio Aplicable
+### Get Applicable Price
 
 **`GET /api/prices?date={date}&productId={productId}&brandId={brandId}`**
 
-| Parámetro | Tipo | Requerido | Formato / Ejemplo | Descripción |
+| Parameter | Type | Required | Format / Example | Description |
 | :--- | :--- | :--- | :--- | :--- |
-| `date` | `string` | **Sí** | `2020-06-14T10:00:00` | Fecha y hora de la aplicación (ISO-8601). |
-| `productId` | `long` | **Sí** | `35455` | Identificador del producto. |
-| `brandId` | `long` | **Sí** | `1` | Identificador de la marca. |
+| `date` | `string` | **Yes** | `2020-06-14T10:00:00` | Application date and time (ISO-8601). |
+| `productId` | `long` | **Yes** | `35455` | Product identifier. |
+| `brandId` | `long` | **Yes** | `1` | Brand identifier. |
 
-#### **Ejemplo de Respuesta (JSON)**
+#### **Example Response (JSON)**
 
 ```json
 {
@@ -62,75 +53,75 @@ El objetivo principal es devolver el precio **aplicable** para un producto y una
 }
 ```
 
-## 📋 Esquema de la Base de Datos
+## 📋 Database Schema
 
 **Tabla: PRICES**
 
-| Columna | Tipo de Dato | Descripción |
+| Column | Data Type | Description |
 | :--- | :--- | :--- |
-| **ID** | `BIGINT` | Clave primaria. |
-| **BRAND_ID** | `BIGINT` | Identificador de Marca (1 = ZARA). |
-| **START_DATE** | `TIMESTAMP` | Inicio de validez. |
-| **END_DATE** | `TIMESTAMP` | Fin de validez. |
-| **PRICE_LIST** | `INT` | Identificador de la Tarifa. |
-| **PRODUCT_ID** | `BIGINT` | Identificador del Producto. |
-| **PRIORITY** | `INT` | **Criterio de desempate** (mayor número = mayor prioridad). |
-| **PRICE** | `DECIMAL` | Precio de venta final. |
-| **CURR** | `VARCHAR` | Código de la divisa (EUR). |
+| **ID** | `BIGINT` | Primary key. |
+| **BRAND_ID** | `BIGINT` | Brand identifier (1 = ZARA). |
+| **START_DATE** | `TIMESTAMP` | Start date of validity period. |
+| **END_DATE** | `TIMESTAMP` | End date of validity period. |
+| **PRICE_LIST** | `INT` | Price list identifier. |
+| **PRODUCT_ID** | `BIGINT` | Product identifier. |
+| **PRIORITY** | `INT` | Tie-breaking criterion (higher value = higher priority). |
+| **PRICE** | `DECIMAL` | Final sale price. |
+| **CURR** | `VARCHAR` | Currency code (e.g., EUR). |
 
 ---
 
-## 💻 Primeros Pasos
+## 💻 Getting Started
 
-### Requisitos Previos
+### Prerequisites
 
-* Java 21 o superior.
-* Maven 3.6 o superior.
-* (Opcional) Docker.
+* Java 21 or higher.
+* Maven 3.6 or higher.
+* (Optional) Docker.
 
-### 1. Ejecución Local
+### 1. 💻 Running Locally
 
-1.  Clona el repositorio.
-2.  Compila y empaqueta:
+1.  Clone the repository.
+2.  Build and package:
     ```bash
     mvn clean install
     ```
-3.  Ejecuta la aplicación:
+3.  Run the application:
     ```bash
     mvn spring-boot:run
     ```
 
 ### 2. Verificación y Acceso
 
-Una vez que la aplicación esté corriendo en **`http://localhost:8080`**:
+Once the application is running at **`http://localhost:8080`**:
 
 * **API REST:** `http://localhost:8080/api/prices`
 * **Swagger UI:** `http://localhost:8080/swagger-ui.html`
 * **H2 Console (DB):** `http://localhost:8080/h2-console`
     * **JDBC URL:** `jdbc:h2:mem:pricingdb`
-    * **Usuario:** `sa` (Contraseña: vacía)
+    * **Username:** `sa` (Password: empty)
 
 ---
 
-## 🐳 Ejecución con Docker
+## 🐳 Running with Docker
 
-### 1. Generar JAR
+### 1. Build the JAR
 
-Asegúrate de tener el JAR ejecutable:
+Make sure you have the executable JAR:
 
 ```bash
 mvn clean package -DskipTests
 ```
 
-### 3. Construir y Ejecutar
+### 2. Build and Run
 
 ```bash
 docker build -t pricing-service .
 docker run -p 8080:8080 pricing-service
 ```
 
-## 🧪 Ejecución test
-Ejecuta todas las pruebas (unitarias y de integración):
+## 🧪 Run test
+Run all tests (unit and integration)::
 
 ```bash
 mvn test
