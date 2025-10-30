@@ -129,7 +129,7 @@ docker build -t pricing-service .
 docker run -p 8080:8080 pricing-service
 ```
 
-## 🐳 Ejecución test
+## 🧪 Ejecución test
 Ejecuta todas las pruebas (unitarias y de integración):
 
 ```bash
