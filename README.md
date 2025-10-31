@@ -121,8 +121,25 @@ docker run -p 8080:8080 pricing-service
 ```
 
 ## 🧪 Run test
-Run all tests (unit and integration)::
+# Run unit test::
 
 ```bash
 mvn test
+```
+
+# Run unit test + integration::
+
+```bash
+mvn verify
+```
+
+# Run integration::
+
+```bash
+mvn failsafe:integration-test
+```
+
+# Build complete (compile + unit test + integration)::
+```bash
+mvn clean install
 ```
