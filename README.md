@@ -91,7 +91,7 @@
     mvn spring-boot:run
     ```
 
-### 2. Verificación y Acceso
+### 2. Verification and access
 
 Once the application is running at **`http://localhost:8080`**:
 
