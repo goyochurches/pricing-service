@@ -17,7 +17,7 @@
 | :--- | :--- | :--- |
 | **Language** | **Java 21** | Main programming language. |
 | **Framework** | **Spring Boot 3.4** | Application architecture. |
-| **Web / REST** | Spring Web MVC | REST endpoints. |
+| **Web / REST** | Architecture hexagonal | REST endpoints. |
 | **Persistence** | Spring Data JPA | Data access and management. |
 | **Database** | **H2 Database** | In-memory storage for testing. |
 | **Build Tool** | **Maven** | Dependency management and build. |
